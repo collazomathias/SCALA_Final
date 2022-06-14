@@ -1,0 +1,11 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# https://www.playframework.com/documentation/latest/ScalaRouting
+# ~~~~
+
+GET     /api/personas/:ci       personas.infrastructure.controllers.ControladorPersonas.obtenerPersonaPorCi(ci : String)
+POST        /api/personas/crearEmpleado       personas.infrastructure.controllers.ControladorPersonas.crearNuevoEmpleado
+POST        /api/personas/crearEncargado       personas.infrastructure.controllers.ControladorPersonas.crearNuevoEncargado
+POST        /api/personas/crearDuenio       personas.infrastructure.controllers.ControladorPersonas.crearNuevoDuenio
+PUT     /api/personas/actualizarPersona       personas.infrastructure.controllers.ControladorPersonas.actualizarPersona
+DELETE      /api/personas/eliminarPersona/:ci       personas.infrastructure.controllers.ControladorPersonas.eliminarPersona(ci : String)
