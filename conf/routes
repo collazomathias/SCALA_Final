@@ -4,6 +4,7 @@
 # ~~~~
 
 GET     /api/personas/:ci       personas.infrastructure.controllers.ControladorPersonas.obtenerPersonaPorCi(ci : String)
+GET     /api/personas       personas.infrastructure.controllers.ControladorPersonas.obtenerPersonas
 POST        /api/personas/crearEmpleado       personas.infrastructure.controllers.ControladorPersonas.crearNuevoEmpleado
 POST        /api/personas/crearEncargado       personas.infrastructure.controllers.ControladorPersonas.crearNuevoEncargado
 POST        /api/personas/crearDuenio       personas.infrastructure.controllers.ControladorPersonas.crearNuevoDuenio

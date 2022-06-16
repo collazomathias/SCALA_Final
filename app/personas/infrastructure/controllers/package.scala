@@ -19,4 +19,8 @@ package object controllers {
         }        
     }
 
+    implicit def PersonaToDTOList(personas : List[Persona]) : List[PersonaDTO] = {
+        personas.map(PersonaToDTO)
+    }
+
 }

@@ -11,6 +11,11 @@ trait ObtenerPersonas {
             Some(listaPersonas.filter(persona => persona.ci == ci).head)
         } else None
     }
+
+    def obtenerPersonas() : Future[Option[List[Persona]]] = Future {
+        if(listaPersonas.isEmpty) None
+        else Some(listaPersonas)
+    }
 }
 
 object ObtenerPersonas extends ObtenerPersonas

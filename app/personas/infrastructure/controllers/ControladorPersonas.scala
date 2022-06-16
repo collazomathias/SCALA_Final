@@ -26,6 +26,16 @@ class ControladorPersonas @Inject() (val controllerComponents : ControllerCompon
         })
     }
 
+    def obtenerPersonas() = Action.async {
+        ObtenerPersonas.obtenerPersonas().map(listaOptional => {
+            listaOptional.map(lista => {
+                val listaDTO : List[PersonaDTO] = lista
+                val json = Json.obj("Lista de personas" -> listaDTO)
+                Ok(json)
+            }).getOrElse(NotFound("No se encontro la persona"))
+        })
+    }
+
     def crearNuevoEmpleado() = Action.async(parse.json) {
         request =>
         val personaDTO = request.body.validate[PersonaDTO]

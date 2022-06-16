@@ -7,11 +7,14 @@ import _root_.personas.infrastructure.databases.ListaPersonas.listaPersonas
 
 trait ActualizarPersonas {
     def actualizarPersona(persona : Persona) : Future[Option[Persona]] = Future {
-        if(listaPersonas.exists(p => p.ci == persona.ci)) {
-            val per1 = listaPersonas.filter(p => p.ci == persona.ci).head
-            val newPersona = per1.copy(nombre = persona.nombre, apellido = persona.apellido, edad = persona.edad, cargo = persona.cargo)
-            Some(newPersona)
-        } else None
+        val exist = listaPersonas.exists(p => p.ci == persona.ci)
+        exist match {
+            case true => {
+                listaPersonas = listaPersonas.map(p => if (p.ci == persona.ci) persona else p)
+                Some(persona)
+            }
+            case false => None
+        }
     }
 }
 
