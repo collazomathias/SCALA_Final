@@ -32,7 +32,7 @@ class ControladorPersonas @Inject() (val controllerComponents : ControllerCompon
                 val listaDTO : List[PersonaDTO] = lista
                 val json = Json.obj("Lista de personas" -> listaDTO)
                 Ok(json)
-            }).getOrElse(NotFound("No se encontro la persona"))
+            }).getOrElse(NotFound("No hay personas para mostrar"))
         })
     }
 
@@ -42,12 +42,11 @@ class ControladorPersonas @Inject() (val controllerComponents : ControllerCompon
         personaDTO.asEither match {
             case Right(value) =>
                 CrearPersonas.crearEmpleado(value).map(persona => {
-                    if(persona.isEmpty) NotFound("No se pudo crear la persona")
-                    else {
-                        val personaDTO : PersonaDTO = persona.get
+                    persona.map(p => {
+                        val personaDTO : PersonaDTO = p
                         val json = Json.toJson(personaDTO)
                         Created(json)
-                    }
+                    }).getOrElse(NotFound("No se pudo crear la persona"))
                 })
             case Left(error) =>
                 Future.successful(BadRequest(error.toString))
@@ -60,12 +59,11 @@ class ControladorPersonas @Inject() (val controllerComponents : ControllerCompon
         personaDTO.asEither match {
             case Right(value) =>
                 CrearPersonas.crearEncargado(value).map(persona => {
-                    if(persona.isEmpty) NotFound("No se pudo crear la persona")
-                    else {
-                        val personaDTO : PersonaDTO = persona.get
+                    persona.map(p => {
+                        val personaDTO : PersonaDTO = p
                         val json = Json.toJson(personaDTO)
                         Created(json)
-                    }
+                    }).getOrElse(NotFound("No se pudo crear la persona"))
                 })
             case Left(error) =>
                 Future.successful(BadRequest(error.toString))
@@ -78,12 +76,11 @@ class ControladorPersonas @Inject() (val controllerComponents : ControllerCompon
         personaDTO.asEither match {
             case Right(value) =>
                 CrearPersonas.crearDuenio(value).map(persona => {
-                    if(persona.isEmpty) NotFound("No se pudo crear la persona")
-                    else {
-                        val personaDTO : PersonaDTO = persona.get
+                    persona.map(p => {
+                        val personaDTO : PersonaDTO = p
                         val json = Json.toJson(personaDTO)
                         Created(json)
-                    }
+                    }).getOrElse(NotFound("No se pudo crear la persona"))
                 })
             case Left(error) =>
                 Future.successful(BadRequest(error.toString))
@@ -96,12 +93,11 @@ class ControladorPersonas @Inject() (val controllerComponents : ControllerCompon
         personaDTO.asEither match {
             case Right(value) =>
                 ActualizarPersonas.actualizarPersona(value).map(persona => {
-                    if(persona.isEmpty) NotFound("No se encontró la persona para actualizar")
-                    else {
-                        val personaDTO : PersonaDTO = persona.get
+                    persona.map(p => {
+                    val personaDTO : PersonaDTO = p
                         val json = Json.toJson(personaDTO)
                         Ok(json)
-                    }
+                    }).getOrElse(NotFound("No se encontró la persona para actualizar"))
                 })
             case Left(error) =>
                 Future.successful(BadRequest(error.toString))

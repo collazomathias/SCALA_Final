@@ -2,13 +2,12 @@ package personas.domains.services
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
-import _root_.personas.domains.models._
-import _root_.personas.infrastructure.databases.ListaPersonas.listaPersonas
+import personas.domains.models._
+import personas.infrastructure.databases.ListaPersonas.listaPersonas
 
 trait CrearPersonas {
     def crearEmpleado(persona : Persona) : Future[Option[Persona]] = Future {
-        val exist = listaPersonas.exists(p => p.ci == persona.ci)
-        exist match {
+        listaPersonas.exists(p => p.ci == persona.ci) match {
             case true => None
             case false => {
                 val newPersona = persona.copy(cargo = Empleado())
@@ -19,8 +18,7 @@ trait CrearPersonas {
     }
 
     def crearEncargado(persona : Persona) : Future[Option[Persona]] = Future {
-        val exist = listaPersonas.exists(p => p.ci == persona.ci)
-        exist match {
+        listaPersonas.exists(p => p.ci == persona.ci) match {
             case true => None
             case false => {
                 val newPersona = persona.copy(cargo = Encargado())
@@ -31,8 +29,7 @@ trait CrearPersonas {
     }
     
     def crearDuenio(persona : Persona) : Future[Option[Persona]] = Future {
-        val exist = listaPersonas.exists(p => p.ci == persona.ci)
-        exist match {
+        listaPersonas.exists(p => p.ci == persona.ci) match {
             case true => None
             case false => {
                 val newPersona = persona.copy(cargo = Duenio())
